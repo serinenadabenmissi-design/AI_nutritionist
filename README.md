@@ -1,54 +1,55 @@
 🍎 AI Nutritionist
-Full-Stack AI Platform for Intelligent Food Photo Analysis
+Full-Stack AI Platform for Intelligent Food Photo Analysis & Nutrition Management
 https://python.org
 https://www.djangoproject.com/
 https://ultralytics.com/
 https://render.com/
 LICENSE
-Live Demo: ai-nutritionist-lsha.onrender.com
-📋 Table of Contents
-Overview
-Features
-Tech Stack
-Architecture
-Installation
-Usage
-Model Training
-API Endpoints
-Screenshots
-Performance
-Future Improvements
-Contributing
-License
-Contact
-🎯 Overview
-AI Nutritionist is a production-ready, full-stack web application that uses computer vision to analyze food photographs, automatically segment individual food items, and estimate their caloric content in real time.
-Built from scratch as an end-to-end system, it demonstrates the ability to bridge deep learning, backend engineering, frontend development, and cloud deployment into a single cohesive product.
-Why This Project?
-Existing calorie-tracking apps rely on manual input or barcode scanning. AI Nutritionist eliminates friction by letting users simply take a photo — the system identifies food items, segments them individually, and returns nutritional data automatically.
+🚀 Live Demo: ai-nutritionist-lsha.onrender.com
+📸 Screenshots
+🏠 Home Page
+ Home 
+🔐 Login Page
+ Login 
+👤 User Dashboard
+ User Dashboard 
+🤖 AI Food Segmentation
+ AI Segmentation 
+🥗 Nutritionist Dashboard - Consultations
+ Nutridash Consultations 
+📋 Nutritionist Dashboard - Diet Plans
+ Nutridash Dietplan 
+📅 User Book Consultation
+ User Book Consultation 
 ✨ Features
-Core Functionality
-📸 Photo Upload — Drag-and-drop or click-to-upload food images
-🎯 Instance Segmentation — YOLOv8-seg identifies and outlines each food item individually
-📊 Calorie Estimation — Automatic calorie calculation per detected food item
-📱 Responsive Design — Works seamlessly on desktop, tablet, and mobile
+🔥 Core AI Features
+📸 AI Food Photo Analysis — Upload a food photo, YOLOv8-seg identifies and segments each food item
+🎯 Instance Segmentation — Individual bounding boxes and masks for each food item
+📊 Calorie Estimation — Automatic nutritional calculation per detected item
 ⚡ Real-Time Processing — Sub-second inference on optimized CPU deployment
-Technical Features
-🔄 RESTful API — Clean, documented endpoints for all operations
-🔐 User Authentication — Secure session-based login and registration
-📦 Database Persistence — SQLite3 with optimized schema for food items, users, and meal history
-🚀 CI/CD Pipeline — Automated testing and deployment via GitHub Actions
+🏥 Platform Features
+👤 Multi-Role System — Patients, Nutritionists, and Admins
+📅 Consultation Booking — Patients book appointments with nutritionists
+📋 Diet Plan Management — Nutritionists create personalized diet plans
+💳 Payment Integration — Secure payment processing for consultations
+📱 Responsive Design — Works on desktop, tablet, and mobile
+🛠 Technical Features
+🔄 RESTful API — Clean, documented Django REST Framework endpoints
+🔐 Authentication — Secure user registration, login, and role-based access
+📦 Database — SQLite3 with optimized schema for users, consultations, diet plans, and meal history
+🚀 CI/CD Pipeline — Automated deployment via GitHub Actions
 ☁️ Cloud Deployed — Live on Render with environment configuration
 🛠 Tech Stack
 Feuilles de calcul
 Layer	Technology
 Computer Vision	YOLOv8-seg (Ultralytics), PyTorch
 Backend	Django 4.0+, Django REST Framework
-Database	SQLite3 (production-ready schema)
-Frontend	HTML5, CSS3, Vanilla JavaScript
-Deployment	Render (Web Service + Static Files)
+Database	SQLite3
+Frontend	HTML5, CSS3, JavaScript
+Payment	Integrated payment gateway
+Deployment	Render (Web Service)
 CI/CD	GitHub Actions
-AI Tools	Cursor, GitHub Copilot (accelerated development)
+AI Tools	Cursor, GitHub Copilot
 Version Control	Git, GitHub
 🏗 Architecture
 plain
@@ -57,25 +58,22 @@ plain
 │   (Browser)     │◀────│   API           │◀────│   Model         │
 │                 │     │                 │     │                 │
 │ • Upload Photo  │     │ • Image Upload  │     │ • Instance      │
-│ • View Results  │     │ • Inference     │     │   Segmentation  │
-│ • Meal History  │     │ • Calorie Calc  │     │ • Classify      │
+│ • Book Consult  │     │ • Inference     │     │   Segmentation  │
+│ • View Dietplan │     │ • Calorie Calc  │     │ • Classify      │
+│ • Payment       │     │ • Auth/Roles    │     │                 │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
          │                       │                       │
          │              ┌────────┴────────┐               │
-         │              │   SQLite3 DB    │               │
-         │              │                 │               │
-         │              │ • Users         │               │
-         │              │ • Food Items    │               │
-         └──────────────│ • Meal History  │───────────────┘
-                        └─────────────────┘
-Data Flow
-User uploads food photo via drag-and-drop or file input
-Image preprocessing — resize, normalize, format for model input
-YOLOv8-seg inference — detects food items, generates segmentation masks
-Post-processing — filter low-confidence detections, aggregate results
-Calorie estimation — map detected classes to nutritional database
-Response — return bounding boxes, segmentation masks, calorie data
-Persistence — store results in database for meal history tracking
+         │              │   SQLite3 DB      │               │
+         │              │                   │               │
+         │              │ • Users (Patient/ │               │
+         │              │   Nutritionist/   │               │
+         │              │   Admin)          │               │
+         │              │ • Consultations   │               │
+         │              │ • Diet Plans      │               │
+         └──────────────│ • Meal History    │───────────────┘
+                        │ • Payments        │
+                        └───────────────────┘
 🚀 Installation
 Prerequisites
 Python 3.9+
@@ -83,8 +81,8 @@ pip
 Git
 Clone Repository
 bash
-git clone https://github.com/serinenadabenmissi-design/AI_nutritionist.git
-cd AI_nutritionist
+git clone https://github.com/ramdaninourhane26-hash/pfe.git
+cd pfe
 Create Virtual Environment
 bash
 python -m venv venv
@@ -97,47 +95,32 @@ source venv/bin/activate
 Install Dependencies
 bash
 pip install -r requirements.txt
-Download Model Weights
-bash
-# YOLOv8-seg model weights will download automatically on first run
-# Or manually place your trained weights in:
-# models/best.pt
 Database Setup
 bash
 python manage.py migrate
-python manage.py createsuperuser  # Optional: create admin account
+python manage.py createsuperuser
 Run Development Server
 bash
 python manage.py runserver
-Visit http://127.0.0.1:8000 in your browser.
+Visit http://127.0.0.1:8000
 💻 Usage
-Web Interface
-Open the application in your browser
-Click or drag a food photo onto the upload area
-Wait for processing (typically under 1 second)
-View results: detected food items with bounding boxes, segmentation masks, and calorie estimates
-Register/login to save meal history
-API Usage
-bash
-# Upload image for analysis
-curl -X POST -F "image=@food_photo.jpg"   https://ai-nutritionist-lsha.onrender.com/api/analyze/
-
-# Response format:
-# {
-#   "success": true,
-#   "items": [
-#     {"class": "apple", "confidence": 0.94, "calories": 95, "mask": "..."},
-#     {"class": "banana", "confidence": 0.89, "calories": 105, "mask": "..."}
-#   ],
-#   "total_calories": 200,
-#   "processing_time": "0.4s"
-# }
-🧠 Model Training
-Dataset
-80+ food categories covering fruits, vegetables, grains, proteins, and prepared foods
-Custom annotated dataset with instance segmentation masks
-Data augmentation: rotation, scaling, flipping, color jittering
-Training Configuration
+For Patients
+Register as a patient
+Upload food photos for AI analysis
+Book consultations with nutritionists
+View personalized diet plans
+Make payments securely
+For Nutritionists
+Register as a nutritionist
+Manage consultation requests
+Create personalized diet plans
+Track patient progress
+For Admins
+Access admin dashboard
+Manage users and roles
+Monitor platform activity
+🧠 AI Model
+YOLOv8-seg Configuration
 Python
 from ultralytics import YOLO
 
@@ -150,34 +133,27 @@ model.train(
     epochs=100,
     imgsz=640,
     batch=16,
-    device='cpu',  # or 'cuda' for GPU
+    device='cpu',
     patience=20,
-    save=True,
-    project='runs/food_segmentation',
-    name='exp01'
+    save=True
 )
-Performance Metrics
+Performance
 Feuilles de calcul
 Metric	Value
 mAP@50	0.87
-mAP@50-95	0.72
 Inference Time (CPU)	< 1 second
-Classes	80+
-Model Size	~6MB (YOLOv8n-seg)
+Food Classes	80+
+Model Size	~6MB
 🔌 API Endpoints
 Feuilles de calcul
-Endpoint	Method	Description
-/api/analyze/	POST	Upload image, return segmentation + calories
-/api/foods/	GET	List all supported food classes
-/api/history/	GET	User's meal history (authenticated)
-/api/history/	POST	Save meal to history (authenticated)
-/api/auth/register/	POST	Create new user account
-/api/auth/login/	POST	Authenticate and receive session
-/api/auth/logout/	POST	End user session
-📸 Screenshots
-Upload Interface
-Analysis Results
-Meal History
+Endpoint	Method	Description	Auth
+/api/analyze/	POST	Upload image, return segmentation + calories	Required
+/api/foods/	GET	List all supported food classes	Public
+/api/consultations/	GET/POST	Manage consultations	Required
+/api/diet-plans/	GET/POST	Manage diet plans	Required
+/api/auth/register/	POST	Create new user account	Public
+/api/auth/login/	POST	Authenticate user	Public
+/api/payments/	POST	Process payment	Required
 ⚡ Performance
 Feuilles de calcul
 Scenario	Time
@@ -185,36 +161,17 @@ Image upload + preprocessing	~100ms
 YOLOv8-seg inference (CPU)	~300-500ms
 Post-processing + calorie lookup	~50ms
 Total response time	< 1 second
-Optimization Techniques
-Model quantization (INT8)
-Input image resizing to 640x640
-Batch inference for multiple images
-Cached food-to-calorie mappings
-Static file serving via CDN
 🔮 Future Improvements
-[ ] Mobile App — Flutter/React Native companion app
-[ ] Multi-language Support — French, Arabic, Spanish
-[ ] Nutritional Database Expansion — Macro and micronutrient tracking
-[ ] User Profiles — Dietary preferences, allergies, goals
-[ ] Meal Planning — Weekly meal suggestions based on history
+[ ] Mobile App — Flutter companion app
+[ ] Multi-language — French, Arabic support
+[ ] Advanced Analytics — Patient progress tracking
 [ ] Cloud Migration — AWS/GCP for scalability
-[ ] GPU Acceleration — CUDA support for faster inference
-[ ] Model Retraining Pipeline — Automated fine-tuning on new data
-🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-Fork the repository
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
+[ ] GPU Acceleration — CUDA support
 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
 📬 Contact
 Serine Benmissi
-📧 Email: benmissi.dev@gmail.com
-💼 LinkedIn: linkedin.com/in/ben-missi-993269419
-🌐 Portfolio: portfolio-inky-three-33.vercel.app
-🐱 GitHub: github.com/serinenadabenmissi-design
-Live Demo: ai-nutritionist-lsha.onrender.com
-"I don't just write code. I build systems that see, think, and decide — and ship them live."
+📧 benmissi.dev@gmail.com
+💼 linkedin.com/in/ben-missi-993269419
+🌐 portfolio-inky-three-33.vercel.app
 ⭐ Star this repo if you find it useful!
